@@ -22,7 +22,6 @@ async function getStoreById(req, res, next) {
     const connection = await Pool.getConnection();
     try {
         const id = req.params.id;
-        console.log(id)
         const [results] = await connection.query("SELECT * FROM test.storetable WHERE id=?",[id])
         res.json({
             status: 200,
@@ -40,7 +39,6 @@ async function getStoreAddressById(req, res, next) {
     const connection = await Pool.getConnection();
     try {
         const id = req.params.id;
-        console.log(id)
         const [results] = await connection.query("SELECT adress FROM test.storetable WHERE id=?",[id])
         res.json({
             status: 200,
@@ -57,7 +55,6 @@ async function getStorePhoneById(req, res, next) {
     const connection = await Pool.getConnection();
     try {
         const id = req.params.id;
-        console.log(id)
         const [results] = await connection.query("SELECT phone FROM test.storetable WHERE id=?",[id])
         res.json({
             status: 200,
