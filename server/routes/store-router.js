@@ -1,18 +1,14 @@
 const express = require("express");
 const router = express.Router();
 
-const { getAllStores, getStoreById,getStoreAddressById,getStorePhoneById,updateStoreInfo} = require("../controller/store-controller");
+const db = require('../utils/mysql')
+const StoreController = require('../controller/store-controller')
+const StoreService = require('../service/store-service')
+const StoreRepository = require('../repository/store-repository')
 
-// GET all stores
-router.get("/", getAllStores);
+const storeController = new StoreController(StoreService, StoreRepository, db)
 
 // GET store by Id
-router.get("/:id", getStoreById);
-
-router.get("/:id/address", getStoreAddressById);
-
-router.get("/:id/phone", getStorePhoneById);
-
-router.patch("/:id", updateStoreInfo);
+router.get("/:id", storeController.getOneStore.bind(storeController));
 
 module.exports = router;

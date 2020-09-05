@@ -7,11 +7,11 @@ app.use(express.urlencoded({ extended: false }))
 require('dotenv').config()
 
 const apiRouter = require('./routes/api-router')
-const authRouter = require('./routes/auth-router')
-const {isLoggined} = require('./utils/auth')
+// const authRouter = require('./routes/auth-router')
+// const {isLoggined} = require('./utils/auth')
+// app.use('/auth', authRouter)
 
-app.use('/auth', authRouter)
-app.use('/api', isLoggined, apiRouter)
+app.use('/api', apiRouter)
 
 app.use('/', (req, res, next) => {
   res.json({ message: 'hello world' })
