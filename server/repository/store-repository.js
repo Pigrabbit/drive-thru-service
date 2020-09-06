@@ -18,11 +18,11 @@ class StoreRepository {
     }
   }
 
-  async getAllStoreByCategory(category_id) {
+  async getAllStoreByCategory({ category_id, offset, limit }) {
     const conn = await this.db.getConnection()
     try {
-      const query = 'SELECT * FROM store WHERE category_id = ?'
-      const [rows] = await conn.query(query, [category_id])
+      const query = 'SELECT * FROM store WHERE category_id = ? LIMIT ? OFFSET ?'
+      const [rows] = await conn.query(query, [category_id, parseInt(limit), parseInt(offset)])
       if (!rows.length) throw new Error('Not Found')
 
       return rows

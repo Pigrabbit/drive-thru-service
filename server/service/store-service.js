@@ -8,8 +8,8 @@ class StoreService {
     return store
   }
 
-  async getStoresByCategory(category_id) {
-    const stores = await this.storeRepository.getAllStoreByCategory(category_id)
+  async getStoresByCategory({ category_id, offset, limit }) {
+    const stores = await this.storeRepository.getAllStoreByCategory({ category_id, offset, limit })
     return stores
   }
 }
