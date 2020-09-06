@@ -21,7 +21,7 @@ class StoreController {
   async getStoresByCategory(req, res, next) {
     try {
       const { category_id } = req.params
-      const { offset = 0, limit = 20 } = req.query
+      const { offset, limit } = req.query
       const stores = await this.storeService.getStoresByCategory({ category_id, offset, limit })
       res.status(200).json({ data: stores })
     } catch (err) {

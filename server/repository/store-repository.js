@@ -18,7 +18,7 @@ class StoreRepository {
     }
   }
 
-  async getAllStoreByCategory({ category_id, offset, limit }) {
+  async getAllStoreByCategory({ category_id, offset = 0, limit = 20}) {
     const conn = await this.db.getConnection()
     try {
       const query = 'SELECT * FROM store WHERE category_id = ? LIMIT ? OFFSET ?'
