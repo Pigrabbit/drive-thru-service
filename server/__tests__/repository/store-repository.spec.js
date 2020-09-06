@@ -66,11 +66,11 @@ describe('StoreRepository', () => {
       expect(data.id).toEqual(mockStoreData.id)
     })
 
-    it('id에 해당하는 매장 정보가 없으면, 빈 값을 리턴한다', async () => {
+    it('id에 해당하는 매장 정보가 없으면, Not Found Error를 던진다', async () => {
       const invalidId = 88888888
-      const data = await storeRepository.getStoreById(invalidId)
-
-      expect(data).toBeFalsy()
+      await expect(
+        storeRepository.getStoreById(invalidId)
+      ).rejects.toThrow('Not Found')
     })
   })
 
