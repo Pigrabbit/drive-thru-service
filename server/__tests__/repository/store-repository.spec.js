@@ -36,6 +36,7 @@ async function setUp(done) {
     VALUE (?, ? ,? ,? ,? ,? ,?)
   `
   await conn.query(insertStoreQuery, [id, category_id, name, phone, latitude, longitude, address])
+  conn.release()
   done()
 }
 
@@ -46,6 +47,7 @@ async function tearDown(done) {
 
   const deleteCategoryQuery = 'DELETE FROM category WHERE id = ?'
   await conn.query(deleteCategoryQuery, [mockCategoryData.id])
+  conn.release()
   done()
 }
 
@@ -60,10 +62,10 @@ describe('StoreRepository', () => {
     })
 
     it('id에 해당하는 매장 정보가 있을 때, id를 받아 해당 store의 정보를 리턴한다', async () => {
-      const data = await storeRepository.getStoreById(mockStoreData.id)
+      const store = await storeRepository.getStoreById(mockStoreData.id)
 
-      expect(data).toBeTruthy()
-      expect(data.id).toEqual(mockStoreData.id)
+      expect(store).toBeTruthy()
+      expect(store.id).toEqual(mockStoreData.id)
     })
 
     it('id에 해당하는 매장 정보가 없으면, Not Found Error를 던진다', async () => {
