@@ -1,5 +1,3 @@
-const pool = require('../utils/mysql')
-
 class StoreController {
   constructor(StoreService, StoreRepository, db) {
     this.storeRepository = new StoreRepository(db)
