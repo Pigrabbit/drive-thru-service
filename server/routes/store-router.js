@@ -9,6 +9,6 @@ const StoreRepository = require('../repository/store-repository')
 const storeController = new StoreController(StoreService, StoreRepository, db)
 
 // GET store by Id
-router.get("/:id", storeController.getOneStore.bind(storeController));
+router.get("/:category_id/:id", storeController.getOneStore.bind(storeController));
 
 module.exports = router;

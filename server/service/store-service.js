@@ -3,8 +3,8 @@ class StoreService {
     this.storeRepository = storeRepository
   }
 
-  async getStoreById(id) {
-    const store = await this.storeRepository.getStoreById(id)
+  async getStoreById(id, category_id) {
+    const store = await this.storeRepository.getStoreById(id, category_id)
     return store
   }
 

@@ -3,11 +3,11 @@ class StoreRepository {
     this.db = db
   }
 
-  async getStoreById(id) {
+  async getStoreById(id, category_id) {
     const conn = await this.db.getConnection()
     try {
-      const query = 'SELECT * FROM store WHERE id = ?'
-      const [rows] = await conn.query(query, [id])
+      const query = 'SELECT * FROM store WHERE id = ? AND category_id = ?'
+      const [rows] = await conn.query(query, [id, category_id])
       if (!rows.length)
         throw new Error('Not Found')
 

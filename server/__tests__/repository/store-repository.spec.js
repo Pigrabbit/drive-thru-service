@@ -61,17 +61,18 @@ describe('StoreRepository', () => {
       await tearDown(done)
     })
 
-    it('id에 해당하는 매장 정보가 있을 때, id를 받아 해당 store의 정보를 리턴한다', async () => {
-      const store = await storeRepository.getStoreById(mockStoreData.id)
+    it('store 테이블에 주어진 id, category_id에 해당하는 매장 record 가 있을 때, 해당 store의 정보를 리턴한다', async () => {
+      const { id, category_id } = mockStoreData
+      const store = await storeRepository.getStoreById(id, category_id)
 
       expect(store).toBeTruthy()
-      expect(store.id).toEqual(mockStoreData.id)
+      expect(store.id).toEqual(id)
     })
 
-    it('id에 해당하는 매장 정보가 없으면, Not Found Error를 던진다', async () => {
+    it('store 테이블에 주어진 id, category_id에 해당하는 매장 record 가 없으면, Not Found Error를 던진다', async () => {
       const invalidId = 88888888
       await expect(
-        storeRepository.getStoreById(invalidId)
+        storeRepository.getStoreById(invalidId, mockStoreData.category_id)
       ).rejects.toThrow('Not Found')
     })
   })

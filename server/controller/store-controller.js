@@ -9,7 +9,8 @@ class StoreController {
   // Get store by Id
   async getOneStore(req, res, next) {
     try {
-      const store = await this.storeService.getStoreById(req.params.id)
+      const { id, category_id } = req.params
+      const store = await this.storeService.getStoreById(id, category_id)
       res.status(200).json({ data: store })
     } catch(err) {
       next(err)
