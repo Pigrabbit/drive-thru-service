@@ -8,8 +8,9 @@ class StoreService {
     return store
   }
 
-  async getStoreByCategory() {
-
+  async getStoresByCategory(category_id) {
+    const stores = await this.storeRepository.getAllStoreByCategory(category_id)
+    return stores
   }
 }
 
