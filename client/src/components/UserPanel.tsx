@@ -8,6 +8,7 @@ const StyledContainer = styled.div`
 
   p {
     margin-top: 10px;
+    font-size: 24px;
     font-weight: 600;
     color: ${COLOR.darkGray}
   }
@@ -19,7 +20,7 @@ export default function UserPanel() {
     <StyledContainer className="user-panel">
       <img
         className="user-thumbnail"
-        src={`${process.env.PUBLIC_URL}/img/account.svg`}
+        src={`${process.env.PUBLIC_URL}/img/icons/account.svg`}
         alt="user-thumbnail"
       />
       <p className="user-panel-username">{mockUsername}</p>

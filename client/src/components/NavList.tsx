@@ -7,7 +7,7 @@ const StyledContainer = styled.ul`
 `
 
 export default function NavList() {
-  const [navList, setNavList] = useState(['order', 'history', 'settings'])
+  const [navList, setNavList] = useState(['order', 'history', 'settings', 'help'])
   return (
     <StyledContainer className="nav">
       {navList.map((item, idx) => (

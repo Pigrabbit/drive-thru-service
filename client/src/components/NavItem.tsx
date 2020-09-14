@@ -27,7 +27,7 @@ export default function NavItem(props: Props) {
   const { name } = props
   return (
     <StyledContainer className="nav-item">
-      <img src={`${process.env.PUBLIC_URL}/img/nav/${name}.svg`} alt={`${name}-icon`} />
+      <img src={`${process.env.PUBLIC_URL}/img/icons/${name}.svg`} alt={`${name}-icon`} />
       <span className="nav-item-text">{name}</span>
     </StyledContainer>
   )
