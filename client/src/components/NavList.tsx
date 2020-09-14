@@ -2,7 +2,9 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import NavItem from './NavItem'
 
-const StyledContainer = styled.ul``
+const StyledContainer = styled.ul`
+  padding: 15px 0;
+`
 
 export default function NavList() {
   const [navList, setNavList] = useState(['order', 'history', 'settings'])

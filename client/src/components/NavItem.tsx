@@ -1,17 +1,21 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import { COLOR } from '../utils/style'
+
 const StyledContainer = styled.li`
   padding: 0 15px;
-  
+  margin-bottom: 4px;
+
   display: grid;
   grid-template-columns: 1fr 3fr;
-  grid-gap: 5px;
+  grid-gap: 10px;
   align-items: center;
 
   span {
     font-size: 18px;
     font-weight: 600;
+    color: ${COLOR.darkGray};
   }
 `
 
