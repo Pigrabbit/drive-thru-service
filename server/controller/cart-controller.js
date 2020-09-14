@@ -17,9 +17,9 @@ class CartController {
   async postCart(req, res, next) {
     try {
       const { productId, quantity } = req.body
-      const cartProductId = await this.cartService.putProductIntoCart({ productId, quantity })
+      const hasSuccess = await this.cartService.putProductIntoCart({ productId, quantity })
 
-      res.status(201).json({ message: 'product added to cart', data: { cartProductId } })
+      res.status(201).json({ message: 'product added to cart', success: hasSuccess })
     } catch (err) {
       next(err)
     }

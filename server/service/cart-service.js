@@ -9,8 +9,8 @@ class CartService {
   }
 
   async putProductIntoCart({ productId, quantity }) {
-    const cartProductId = await this.cartRepository.addToCart({ productId, quantity })
-    return cartProductId
+    const result = await this.cartRepository.addToCart({ productId, quantity })
+    return result
   }
 
   async modifyProductQuantity({ cartId, productId, quantity }) {

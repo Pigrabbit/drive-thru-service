@@ -44,14 +44,32 @@ class CartRepository {
         cartId = cart[0].id
       }
 
-      const insertCartProductQuery =
-        'INSERT INTO cart_product (cart_id, product_id, quantity) VALUES (?, ?, ?)'
-      const [rows] = await conn.query(insertCartProductQuery, [cartId, productId, quantity])
-      const { affectedRows, insertId } = rows
-      if (affectedRows !== 1) throw new Error('Internal Server Error')
+      const checkProductExistsInCartQuery =
+        'SELECT * FROM cart_product WHERE cart_id = ? AND product_id = ?'
+      const [products] = await conn.query(checkProductExistsInCartQuery, [cartId, productId])
+
+      if (!products.length) {
+        const insertCartProductQuery =
+          'INSERT INTO cart_product (cart_id, product_id, quantity) VALUES (?, ?, ?)'
+        const [rows] = await conn.query(insertCartProductQuery, [cartId, productId, quantity])
+        const { affectedRows } = rows
+
+        if (affectedRows !== 1) throw new Error('Internal Server Error')
+      } else {
+        const { id } = products[0]
+        const currentQuantity = parseInt(products[0].quantity)
+        const increaseCartProductQuery = 'UPDATE cart_product SET quantity=? WHERE id=?'
+        const [rows] = await conn.query(increaseCartProductQuery, [
+          currentQuantity + parseInt(quantity),
+          id,
+        ])
+        const { affectedRows } = rows
+
+        if (affectedRows !== 1) throw new Error('Internal Server Error')
+      }
 
       await conn.commit()
-      return insertId
+      return true
     } catch (err) {
       conn.rollback()
       throw err
@@ -98,7 +116,7 @@ class CartRepository {
 
       await conn.commit()
       return true
-    } catch(err) {
+    } catch (err) {
       conn.rollback()
       throw err
     } finally {

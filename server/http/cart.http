@@ -6,8 +6,8 @@ POST http://localhost:3000/api/cart
 Content-Type: application/json
 
 {
-  "productId": 3,
-  "quantity": 4
+  "productId": 5,
+  "quantity": 1
 }
 
 ### update quantity of product existing in a cart
