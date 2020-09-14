@@ -15,13 +15,14 @@ const StyledContainer = styled.li`
 `
 interface Props {
   name: string
+  cardType: string
 }
 
 export default function Card(props: Props) {
-  const { name } = props
+  const { name, cardType } = props
   return (
     <StyledContainer className="card">
-      <img src={`${process.env.PUBLIC_URL}/img/category/${name}.jpg`} alt="" />
+      <img src={`${process.env.PUBLIC_URL}/img/${cardType}/${name}.jpg`} alt="" />
       <p>{name}</p>
     </StyledContainer>
   )

@@ -10,13 +10,13 @@ const StyledContainer = styled.main`
 
 export default function MainPage() {
   const categoryList = ['Fastfood', 'Asian', 'Dessert']
-  const recommendList = []
+  const recommendList = ['bhc', 'starbucks', 'tteokbokki']
   return (
     <StyledContainer className="main-page">
       <Sidebar />
       <div>
-        <CardSection name="Category" itemList={categoryList} />
-        <CardSection name="Recommended" itemList={categoryList} />
+        <CardSection name="Category" cardType="category" itemList={categoryList} />
+        <CardSection name="Recommend" cardType="store" itemList={recommendList} />
       </div>
     </StyledContainer>
   )

@@ -29,11 +29,12 @@ const StyledContainer = styled.section`
 
 interface Props {
   name: string
+  cardType: string
   itemList: string[]
 }
 
 export default function CardSection(props: Props) {
-  const { name, itemList } = props
+  const { name, cardType, itemList } = props
 
   return (
     <StyledContainer className="card-section">
@@ -44,7 +45,7 @@ export default function CardSection(props: Props) {
         </button>
         <ul className="store-section-list">
           {itemList.map((item, idx) => (
-            <Card key={idx} name={item} />
+            <Card key={idx} cardType={cardType} name={item} />
           ))}
         </ul>
         <button className="card-section-body-next-btn">
