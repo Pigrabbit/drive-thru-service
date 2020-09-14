@@ -9,12 +9,15 @@ const CartRepository = require('../repository/cart-repository')
 const cartController = new CartController(CartService, CartRepository, db)
 
 // Get Cart Data by Id
-router.get('/:cart_id', cartController.getOneCart.bind(cartController))
-// Create new Cart
-router.post('/:cart_id', cartController.createCart.bind(cartController))
+router.get('/:cart_id', cartController.getCart.bind(cartController))
+
+// Put new product into the Cart
+router.post('/', cartController.postCart.bind(cartController))
+
 // Update quantity of product in cart
-router.put('/:cart_id/:product_id', cartController.updateCartProductQuantity.bind(cartController))
+router.put('/:cart_id/:product_id', cartController.updateCart.bind(cartController))
+
 // remove product in the cart
-router.delete('/:cart_id/:product_id', cartController.removeCartProduct.bind(cartController))
+router.delete('/:cart_id/:product_id', cartController.deleteCart.bind(cartController))
 
 module.exports = router;

@@ -1,3 +1,11 @@
 ###
 GET http://localhost:3000/api/cart/1
 
+### put a product into cart
+POST http://localhost:3000/api/cart
+Content-Type: application/json
+
+{
+  "productId": 3,
+  "quantity": 4
+}
