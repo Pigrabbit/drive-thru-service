@@ -1,0 +1,5 @@
+### GET single store by category_id and id
+GET http://localhost:3000/api/store/1/1
+
+### GET all stores by category
+GET http://localhost:3000/api/store/1?offset=0&limit=1

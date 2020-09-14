@@ -1,95 +1,31 @@
-const pool = require('../utils/mysql')
+class StoreController {
+  constructor(StoreService, StoreRepository, db) {
+    this.storeRepository = new StoreRepository(db)
+    this.storeService = new StoreService(this.storeRepository)
+  }
 
-// Get all store
-async function getAllStores(req, res, next) {
-  const connection = await pool.getConnection()
-  try {
-    const [results] = await connection.query('SELECT * FROM test.storetable;')
-    res.json({
-      status: 200,
-      arr: results,
-    })
-  } catch (error) {
-    next(error)
-  } finally {
-    connection.release()
+  // Get store by Id
+  async getOneStore(req, res, next) {
+    try {
+      const { id, category_id } = req.params
+      const store = await this.storeService.getStoreById(id, category_id)
+      res.status(200).json({ data: store })
+    } catch (err) {
+      next(err)
+    }
+  }
+
+  // Get all stores in the category
+  async getStoresByCategory(req, res, next) {
+    try {
+      const { category_id } = req.params
+      const { offset, limit } = req.query
+      const stores = await this.storeService.getStoresByCategory({ category_id, offset, limit })
+      res.status(200).json({ data: stores })
+    } catch (err) {
+      next(err)
+    }
   }
 }
 
-// Get store by Id
-async function getStoreById(req, res, next) {
-  const connection = await pool.getConnection()
-  try {
-    const id = req.params.id
-    const [results] = await connection.query('SELECT * FROM test.storetable WHERE id=?', [id])
-    res.json({
-      status: 200,
-      arr: results,
-    })
-  } catch (error) {
-    next(error)
-  } finally {
-    connection.release()
-  }
-}
-
-async function getStoreAddressById(req, res, next) {
-  const connection = await pool.getConnection()
-  try {
-    const id = req.params.id
-    const [results] = await connection.query('SELECT adress FROM test.storetable WHERE id=?', [id])
-    res.json({
-      status: 200,
-      arr: results,
-    })
-  } catch (error) {
-    next(error)
-  } finally {
-    connection.release()
-  }
-}
-async function getStorePhoneById(req, res, next) {
-  const connection = await pool.getConnection()
-  try {
-    const id = req.params.id
-    const [results] = await connection.query('SELECT phone FROM test.storetable WHERE id=?', [id])
-    res.json({
-      status: 200,
-      arr: results,
-    })
-  } catch (error) {
-    next(error)
-  } finally {
-    connection.release()
-  }
-}
-
-async function updateStoreInfo(req, res, next) {
-  const connection = await pool.getConnection()
-  try {
-    // user table 필드들을 body로 받는다
-    const { phone, address } = req.body
-    const id = req.params.id
-
-    const query = 'UPDATE test.storetable SET phone = ? WHERE id = ?'
-
-    await connection.query(query, [phone, id])
-
-    res.json({
-      status: 200,
-      message: 'success update info',
-    })
-  } catch (error) {
-    next(error)
-  } finally {
-    connection.release()
-  }
-}
-
-module.exports = {
-  getAllStores,
-  getStoreById,
-  getStoreAddressById,
-  getStorePhoneById,
-  updateStoreInfo,
-}
+module.exports = StoreController
