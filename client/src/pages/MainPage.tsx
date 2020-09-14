@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import Sidebar from '../components/Sidebar'
 import CardSection from '../components/CardSection'
+import { CATEGORY_LIST, RECOMMEND_LIST } from '../utils/constants'
 
 const StyledContainer = styled.main`
   display: grid;
@@ -9,14 +10,12 @@ const StyledContainer = styled.main`
 `
 
 export default function MainPage() {
-  const categoryList = ['Fastfood', 'Asian', 'Dessert']
-  const recommendList = ['bhc', 'starbucks', 'tteokbokki']
   return (
     <StyledContainer className="main-page">
       <Sidebar />
-      <div>
-        <CardSection name="Category" cardType="category" itemList={categoryList} />
-        <CardSection name="Recommend" cardType="store" itemList={recommendList} />
+      <div className="main-dashboard">
+        <CardSection name="Category" cardType="category" itemList={CATEGORY_LIST} />
+        <CardSection name="Recommend" cardType="store" itemList={RECOMMEND_LIST} />
       </div>
     </StyledContainer>
   )
