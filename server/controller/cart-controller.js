@@ -18,7 +18,6 @@ class CartController {
     try {
       const { productId, quantity } = req.body
       const cartProductId = await this.cartService.putProductIntoCart({ productId, quantity })
-      if (cartProductId === -1) throw new Error('Internal Server Error')
 
       res.status(201).json({ message: 'product added to cart', data: { cartProductId } })
     } catch (err) {
@@ -26,7 +25,20 @@ class CartController {
     }
   }
 
-  async updateCart(req, res, next) {}
+  async updateCart(req, res, next) {
+    try {
+      const { cartId, productId } = req.params
+      const { quantity } = req.body
+      if (quantity < 1) throw new Error('Bad request')
+      const hasSuccess = await this.cartService.modifyProductQuantity({ cartId, productId, quantity })
+
+      res
+        .status(200)
+        .json({ message: 'the quantity of product has been updated', success: hasSuccess })
+    } catch (err) {
+      next(err)
+    }
+  }
 
   async deleteCart(req, res, next) {}
 }

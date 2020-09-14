@@ -15,7 +15,7 @@ router.get('/:cart_id', cartController.getCart.bind(cartController))
 router.post('/', cartController.postCart.bind(cartController))
 
 // Update quantity of product in cart
-router.put('/:cart_id/:product_id', cartController.updateCart.bind(cartController))
+router.put('/:cartId/:productId', cartController.updateCart.bind(cartController))
 
 // remove product in the cart
 router.delete('/:cart_id/:product_id', cartController.deleteCart.bind(cartController))

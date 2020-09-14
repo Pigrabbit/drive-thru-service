@@ -33,9 +33,8 @@ class CartRepository {
         ORDER BY created_at DESC LIMIT 1
       `
       const [cart] = await conn.query(findCartQuery, [mockUserId])
-      console.log(cart)
-      let cartId = null
 
+      let cartId = null
       if (!cart.length) {
         const createNewCartQuery = 'INSERT INTO cart (user_id, is_paid) VALUE (?, 0)'
         const [rows] = await conn.query(createNewCartQuery, [mockUserId])
@@ -49,9 +48,33 @@ class CartRepository {
         'INSERT INTO cart_product (cart_id, product_id, quantity) VALUES (?, ?, ?)'
       const [rows] = await conn.query(insertCartProductQuery, [cartId, productId, quantity])
       const { affectedRows, insertId } = rows
+      if (affectedRows !== 1) throw new Error('Internal Server Error')
 
       await conn.commit()
-      return affectedRows === 1? insertId : -1
+      return insertId
+    } catch (err) {
+      conn.rollback()
+      throw err
+    } finally {
+      conn.release()
+    }
+  }
+
+  async updateQuantity({ cartId, productId, quantity }) {
+    const conn = await this.db.getConnection()
+    try {
+      await conn.beginTransaction()
+      const checkCartIsPaidQuery = 'SELECT * FROM cart WHER cart_id=?'
+      const [carts] = await conn.query(checkCartIsPaidQuery, [cartId])
+      if (carts[0].is_paid !== 0) throw new Error('Bad Request')
+
+      const query = 'UPDATE cart_product SET quantity = ? WHERE cart_id = ? AND product_id = ?'
+      const [rows] = await conn.query(query, [quantity, cartId, productId])
+      const { affectedRows } = rows
+      if (affectedRows !== 1) throw new Error('Internal Server Error')
+
+      await conn.commit()
+      return true
     } catch (err) {
       conn.rollback()
       throw err
