@@ -18,3 +18,6 @@ Content-Type: application/json
 {
   "quantity": 2
 }
+
+### Remove cart product
+DELETE http://localhost:3000/api/cart/1/4

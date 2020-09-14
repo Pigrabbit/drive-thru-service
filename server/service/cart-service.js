@@ -17,6 +17,11 @@ class CartService {
     const result = await this.cartRepository.updateQuantity({ cartId, productId, quantity })
     return result
   }
+
+  async removeProductFromCart({ cartId, productId }) {
+    const result = await this.cartRepository.removeProduct({ cartId, productId })
+    return result
+  }
 }
 
 module.exports = CartService

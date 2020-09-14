@@ -6,8 +6,8 @@ class CartController {
 
   async getCart(req, res, next) {
     try {
-      const { cart_id } = req.params
-      const cart = await this.cartService.getCartById(cart_id)
+      const { cartId } = req.params
+      const cart = await this.cartService.getCartById(cartId)
       res.status(200).json({ data: cart })
     } catch (err) {
       next(err)
@@ -30,7 +30,11 @@ class CartController {
       const { cartId, productId } = req.params
       const { quantity } = req.body
       if (quantity < 1) throw new Error('Bad request')
-      const hasSuccess = await this.cartService.modifyProductQuantity({ cartId, productId, quantity })
+      const hasSuccess = await this.cartService.modifyProductQuantity({
+        cartId,
+        productId,
+        quantity,
+      })
 
       res
         .status(200)
@@ -40,7 +44,16 @@ class CartController {
     }
   }
 
-  async deleteCart(req, res, next) {}
+  async deleteCart(req, res, next) {
+    try {
+      const { cartId, productId } = req.params
+      const isDeleted = await this.cartService.removeProductFromCart({ cartId, productId })
+
+      res.status(200).json({ success: isDeleted })
+    } catch (err) {
+      next(err)
+    }
+  }
 }
 
 module.exports = CartController

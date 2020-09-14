@@ -64,7 +64,7 @@ class CartRepository {
     const conn = await this.db.getConnection()
     try {
       await conn.beginTransaction()
-      const checkCartIsPaidQuery = 'SELECT * FROM cart WHER cart_id=?'
+      const checkCartIsPaidQuery = 'SELECT * FROM cart WHERE id=?'
       const [carts] = await conn.query(checkCartIsPaidQuery, [cartId])
       if (carts[0].is_paid !== 0) throw new Error('Bad Request')
 
@@ -76,6 +76,29 @@ class CartRepository {
       await conn.commit()
       return true
     } catch (err) {
+      conn.rollback()
+      throw err
+    } finally {
+      conn.release()
+    }
+  }
+
+  async removeProduct({ cartId, productId }) {
+    const conn = await this.db.getConnection()
+    try {
+      await conn.beginTransaction()
+      const checkCartIsPaidQuery = 'SELECT * FROM cart WHERE id=?'
+      const [carts] = await conn.query(checkCartIsPaidQuery, [cartId])
+      if (carts[0].is_paid !== 0) throw new Error('Bad Request')
+
+      const deleteCartProductQuery = 'DELETE FROM cart_product WHERE cart_id = ? AND product_id = ?'
+      const [rows] = await conn.query(deleteCartProductQuery, [cartId, productId])
+      const { affectedRows } = rows
+      if (affectedRows !== 1) throw new Error('Internal Server Error')
+
+      await conn.commit()
+      return true
+    } catch(err) {
       conn.rollback()
       throw err
     } finally {
