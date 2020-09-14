@@ -4,7 +4,12 @@ import styled from 'styled-components'
 const StyledContainer = styled.li`
   margin: 10px;
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  height: 250px;
 
   p {
     margin-top: 10px;
