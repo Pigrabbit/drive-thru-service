@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { MouseEvent, useRef } from 'react'
 import styled from 'styled-components'
 import { NUM_CARD_IN_SECTION } from '../utils/constants'
 import CardSection from './CardSection'
@@ -11,9 +11,11 @@ const StyledContainer = styled.div`
     margin: 15px;
     font-size: 36px;
   }
-  
+
   .carousel-arrow {
-    filter: invert(70%)
+    img {
+      filter: invert(70%);
+    }
   }
 
   .carousel-slider {
@@ -41,15 +43,37 @@ interface Props {
 
 export default function Carousel(props: Props) {
   const { name, cardType, itemList } = props
+  const sliderRef = useRef<HTMLDivElement | null>(null)
+
+  const leftArrowClickHandler = (e: MouseEvent) => {
+    if (!sliderRef || !sliderRef.current) return
+    sliderRef.current.scrollTo({
+      top: 0,
+      left: sliderRef.current.scrollLeft - sliderRef.current.clientWidth,
+      behavior: 'smooth'
+    })
+  }
+
+  const rightArrowClickHandler = (e: MouseEvent) => {
+    if (!sliderRef || !sliderRef.current) return
+    sliderRef.current.scrollTo({
+      top: 0,
+      left: sliderRef.current.scrollLeft + sliderRef.current.clientWidth,
+      behavior: 'smooth'
+    })
+  }
 
   return (
     <StyledContainer className="carousel">
       <h1 className="carousel-header">{name}</h1>
       <div className="card-section-body">
-        <img className="carousel-arrow" src={`${process.env.PUBLIC_URL}/img/icons/arrow_left.svg`} />
-        <div className="carousel-slider">
+        <button className="carousel-arrow" onClick={leftArrowClickHandler}>
+          <img src={`${process.env.PUBLIC_URL}/img/icons/arrow_left.svg`} />
+        </button>
+        <div className="carousel-slider" ref={sliderRef}>
           {[...Array(NUM_CARD_IN_SECTION).keys()].map((sectionIdx) => (
             <CardSection
+              id={`card-section${sectionIdx}`}
               cardType={cardType}
               itemList={itemList.filter(
                 (item, idx) => ~~(idx / NUM_CARD_IN_SECTION) === sectionIdx
@@ -57,7 +81,9 @@ export default function Carousel(props: Props) {
             />
           ))}
         </div>
-        <img className="carousel-arrow" src={`${process.env.PUBLIC_URL}/img/icons/arrow_right.svg`} />
+        <button className="carousel-arrow" onClick={rightArrowClickHandler}>
+          <img src={`${process.env.PUBLIC_URL}/img/icons/arrow_right.svg`} />
+        </button>
       </div>
     </StyledContainer>
   )

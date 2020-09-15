@@ -14,15 +14,16 @@ const StyledContainer = styled.ul`
 `
 
 interface Props {
+  id: string
   cardType: string
   itemList: string[]
 }
 
 export default function CardSection(props: Props) {
-  const { itemList, cardType } = props
+  const { id, itemList, cardType } = props
 
   return (
-    <StyledContainer className="card-section">
+    <StyledContainer id={id} className="card-section">
       {itemList
         .map((item, idx) => (
           <Card key={idx} cardType={cardType} name={item} />
