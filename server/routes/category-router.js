@@ -8,6 +8,7 @@ const CategoryRepository = require('../repository/category-repository')
 
 const categoryController = new CategoryController(CategoryService, CategoryRepository, db)
 
+router.get('/:id', categoryController.getOneCategory.bind(categoryController))
 router.get('/', categoryController.getAllCategory.bind(categoryController))
 
 module.exports = router

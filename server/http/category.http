@@ -1,1 +1,5 @@
+### GET All Category
 GET http://localhost:4000/api/category
+
+### GET CategoryById
+GET http://localhost:4000/api/category/1
