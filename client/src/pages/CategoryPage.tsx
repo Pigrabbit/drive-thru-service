@@ -11,7 +11,7 @@ const StyledContainer = styled.main`
 export default function CategoryPage() {
   const location = useLocation()
   const id = location.pathname.split('/')[2]
-  
+
   return (
     <StyledContainer className="category-page">
       <Sidebar />
