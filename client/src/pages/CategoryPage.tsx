@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 import Sidebar from '../components/Sidebar'
@@ -12,12 +12,25 @@ export default function CategoryPage() {
   const location = useLocation()
   const id = location.pathname.split('/')[2]
 
+  const [name, setName] = useState('')
+
+  useEffect(() => {
+    async function fetchData() {
+      const result = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/category/${id}`, {
+        method: 'GET',
+      })
+      const data = await result.json()
+      setName(data.name)
+    }
+
+    fetchData()
+  }, [])
+
   return (
     <StyledContainer className="category-page">
       <Sidebar />
       <div className="category-dashboard">
-        <h1>Category Page</h1>
-        <p>id: {id}</p>
+        <h1>{name}</h1>
       </div>
     </StyledContainer>
   )
