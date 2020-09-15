@@ -4,6 +4,7 @@ import styled from 'styled-components'
 const StyledContainer = styled.li`
   margin: 10px;
   padding: 10px;
+  width: 320px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

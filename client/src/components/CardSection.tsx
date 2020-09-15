@@ -2,56 +2,32 @@ import React from 'react'
 import styled from 'styled-components'
 import Card from './Card'
 
-const StyledContainer = styled.section`
-  margin: 10px;
-  padding: 10px;
-
-  h1 {
-    margin: 10px;
-    font-size: 36px;
-  }
-  
-  .card-section-body {
-    width: 100%;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-  }
-
-  ul {
-    display: flex;
-    flex: 0 0 auto;
-    overflow-x: auto;
-    width: auto;
-  }
-  
+const StyledContainer = styled.ul`
+  display: flex;
+  justify-content: center;
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
 `
 
 interface Props {
-  name: string
+  id: string
   cardType: string
   itemList: string[]
 }
 
 export default function CardSection(props: Props) {
-  const { name, cardType, itemList } = props
+  const { id, itemList, cardType } = props
 
   return (
-    <StyledContainer className="card-section">
-      <h1 className="card-section-header">{name}</h1>
-      <div className="card-section-body">
-        <button className="card-section-body-back-btn">
-          <img src={`${process.env.PUBLIC_URL}/img/icons/arrow_left.svg`} />
-        </button>
-        <ul className="store-section-list">
-          {itemList.map((item, idx) => (
-            <Card key={idx} cardType={cardType} name={item} />
-          ))}
-        </ul>
-        <button className="card-section-body-next-btn">
-          <img src={`${process.env.PUBLIC_URL}/img/icons/arrow_right.svg`} />
-        </button>
-      </div>
+    <StyledContainer id={id} className="card-section">
+      {itemList
+        .map((item, idx) => (
+          <Card key={idx} cardType={cardType} name={item} />
+        ))}
     </StyledContainer>
   )
 }
