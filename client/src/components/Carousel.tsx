@@ -1,15 +1,19 @@
 import React from 'react'
 import styled from 'styled-components'
-import Card from './Card'
 import { NUM_CARD_IN_SECTION } from '../utils/constants'
+import CardSection from './CardSection'
 
 const StyledContainer = styled.div`
   margin: 10px;
   padding: 10px;
 
   .carousel-header {
-    margin: 10px;
+    margin: 15px;
     font-size: 36px;
+  }
+  
+  .carousel-arrow {
+    filter: invert(70%)
   }
 
   .carousel-slider {
@@ -27,17 +31,6 @@ const StyledContainer = styled.div`
   .card-section-body {
     display: flex;
   }
-
-  .card-section-list {
-    display: flex;
-    justify-content: center;
-    flex: 0 0 auto;
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
-  }
 `
 
 interface Props {
@@ -51,25 +44,20 @@ export default function Carousel(props: Props) {
 
   return (
     <StyledContainer className="carousel">
-      <h1 className="carosel-header">{name}</h1>
+      <h1 className="carousel-header">{name}</h1>
       <div className="card-section-body">
-        <button className="card-section-body-back-btn">
-          <img src={`${process.env.PUBLIC_URL}/img/icons/arrow_left.svg`} />
-        </button>
+        <img className="carousel-arrow" src={`${process.env.PUBLIC_URL}/img/icons/arrow_left.svg`} />
         <div className="carousel-slider">
-          {[...Array(NUM_CARD_IN_SECTION).keys()].map((section) => (
-            <ul className="card-section-list">
-              {itemList
-                .filter((item, idx) => ~~(idx / NUM_CARD_IN_SECTION) === section)
-                .map((item, idx) => (
-                  <Card key={idx} cardType={cardType} name={item} />
-                ))}
-            </ul>
+          {[...Array(NUM_CARD_IN_SECTION).keys()].map((sectionIdx) => (
+            <CardSection
+              cardType={cardType}
+              itemList={itemList.filter(
+                (item, idx) => ~~(idx / NUM_CARD_IN_SECTION) === sectionIdx
+              )}
+            />
           ))}
         </div>
-        <button className="card-section-body-next-btn">
-          <img src={`${process.env.PUBLIC_URL}/img/icons/arrow_right.svg`} />
-        </button>
+        <img className="carousel-arrow" src={`${process.env.PUBLIC_URL}/img/icons/arrow_right.svg`} />
       </div>
     </StyledContainer>
   )
