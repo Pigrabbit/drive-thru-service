@@ -1,5 +1,6 @@
 import React, { MouseEvent, useRef } from 'react'
 import styled from 'styled-components'
+import { CategoryType } from '../pages/MainPage'
 import { NUM_CARD_IN_SECTION } from '../utils/constants'
 import CardSection from './CardSection'
 
@@ -37,12 +38,11 @@ const StyledContainer = styled.div`
 
 interface Props {
   name: string
-  cardType: string
-  itemList: string[]
+  itemList: CategoryType[]
 }
 
 export default function Carousel(props: Props) {
-  const { name, cardType, itemList } = props
+  const { name, itemList } = props
   const sliderRef = useRef<HTMLDivElement | null>(null)
 
   const leftArrowClickHandler = (e: MouseEvent) => {
@@ -73,8 +73,8 @@ export default function Carousel(props: Props) {
         <div className="carousel-slider" ref={sliderRef}>
           {[...Array(NUM_CARD_IN_SECTION).keys()].map((sectionIdx) => (
             <CardSection
+              key={sectionIdx}
               id={`card-section${sectionIdx}`}
-              cardType={cardType}
               itemList={itemList.filter(
                 (item, idx) => ~~(idx / NUM_CARD_IN_SECTION) === sectionIdx
               )}

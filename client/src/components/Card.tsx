@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { CategoryType } from '../pages/MainPage'
 
 const StyledContainer = styled.li`
   margin: 0 10px;
@@ -20,15 +21,14 @@ const StyledContainer = styled.li`
   }
 `
 interface Props {
-  name: string
-  cardType: string
+  categoryData: CategoryType
 }
 
 export default function Card(props: Props) {
-  const { name, cardType } = props
+  const { id, name, thumbnail_src } = props.categoryData
   return (
-    <StyledContainer className="card">
-      <img src={`${process.env.PUBLIC_URL}/img/${cardType}/${name}.jpg`} alt="" />
+    <StyledContainer id={`category-${id}`} className="card">
+      <img src={thumbnail_src} alt="" />
       <p>{name}</p>
     </StyledContainer>
   )
