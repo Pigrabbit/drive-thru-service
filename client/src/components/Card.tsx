@@ -2,21 +2,21 @@ import React from 'react'
 import styled from 'styled-components'
 
 const StyledContainer = styled.li`
-  margin: 10px;
-  padding: 10px;
-  width: 320px;
+  margin: 0 10px;
+  padding: 5px;
+  width: 30%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
-  height: 250px;
-
+  
   p {
-    margin-top: 10px;
+    margin-top: 4px;
   }
   img {
-    width: 300px;
+    width: 100%;
   }
 `
 interface Props {

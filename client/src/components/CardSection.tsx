@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import Card from './Card'
 
 const StyledContainer = styled.ul`
+  padding: 5px;
   display: flex;
   justify-content: center;
   flex: 0 0 auto;
@@ -24,10 +25,9 @@ export default function CardSection(props: Props) {
 
   return (
     <StyledContainer id={id} className="card-section">
-      {itemList
-        .map((item, idx) => (
-          <Card key={idx} cardType={cardType} name={item} />
-        ))}
+      {itemList.map((item, idx) => (
+        <Card key={idx} cardType={cardType} name={item} />
+      ))}
     </StyledContainer>
   )
 }
