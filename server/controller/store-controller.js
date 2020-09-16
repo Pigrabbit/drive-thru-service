@@ -9,7 +9,7 @@ class StoreController {
     try {
       const { id } = req.params
       const store = await this.storeService.getStoreById(id)
-      res.status(200).json({ data: store })
+      res.status(200).json(store)
     } catch (err) {
       next(err)
     }
@@ -20,7 +20,7 @@ class StoreController {
     try {
       const { categoryId, offset, limit } = req.query
       const stores = await this.storeService.getStoresByCategory({ categoryId, offset, limit })
-      res.status(200).json({ data: stores })
+      res.status(200).json(stores)
     } catch (err) {
       next(err)
     }

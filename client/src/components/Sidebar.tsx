@@ -7,7 +7,7 @@ import { COLOR } from '../utils/style'
 
 const StyledContainer = styled.aside`
   background-color: ${COLOR.lightGray};
-  height: 100vh;
+  height: 100%;
 `
 
 export default function Sidebar() {
