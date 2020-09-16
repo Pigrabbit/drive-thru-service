@@ -11,12 +11,12 @@ const StyledContainer = styled.li`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
 
   p {
     margin-top: 4px;
   }
+  
   img {
     width: 100%;
   }

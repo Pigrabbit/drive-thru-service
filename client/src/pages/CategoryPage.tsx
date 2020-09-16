@@ -8,6 +8,11 @@ const StyledContainer = styled.main`
   grid-template-columns: 16.7vw 83.3vw;
 `
 
+const StyledDashboard = styled.div`
+  margin: 10px;
+  padding: 10px;
+`
+
 export default function CategoryPage() {
   const location = useLocation()
   const id = location.pathname.split('/')[2]
@@ -29,9 +34,9 @@ export default function CategoryPage() {
   return (
     <StyledContainer className="category-page">
       <Sidebar />
-      <div className="category-dashboard">
+      <StyledDashboard className="category-dashboard">
         <h1>{name}</h1>
-      </div>
+      </StyledDashboard>
     </StyledContainer>
   )
 }
