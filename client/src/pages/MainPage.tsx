@@ -23,7 +23,6 @@ export default function MainPage() {
         method: 'GET',
       })
       const data = await result.json()
-      console.log(data)
       setCategoryList(data)
     }
 
