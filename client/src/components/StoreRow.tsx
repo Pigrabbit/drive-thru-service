@@ -29,7 +29,7 @@ const StyledContainer = styled.li`
 `
 
 interface Props {
-  id: string
+  id: number
   store: StoreType
 }
 
@@ -37,7 +37,7 @@ export default function StoreRow(props: Props) {
   const { id, store } = props
   const { name, rating, description, thumbnail_src } = store
   return (
-    <StyledContainer id={id} className="store-row">
+    <StyledContainer id={`store-${id}`} className="store-row">
       <StyledLink to={`/store/${id}`}>
         <img className="store-thumbnail" src={thumbnail_src} alt={`store-thumbnail-${name}`} />
         <div className="store-content">

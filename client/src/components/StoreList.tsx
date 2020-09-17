@@ -16,7 +16,7 @@ export default function StoreList(props: Props) {
   return (
     <StyledContainer className="store-list">
       {storeList.map((store, idx) => (
-        <StoreRow key={idx} id={`store-${store.id}`} store={store}/>
+        <StoreRow key={idx} id={store.id} store={store}/>
       ))}
     </StyledContainer>
   )
