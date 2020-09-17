@@ -1,13 +1,14 @@
-class StoreRepository {
+class CategoryRepository {
   constructor(db) {
     this.db = db
   }
 
-  async getStoreById(id) {
+  async getCategoryById(id) {
     const conn = await this.db.getConnection()
     try {
-      const query = 'SELECT * FROM store WHERE id = ?'
+      const query = 'SELECT * FROM category WHERE id=?'
       const [rows] = await conn.query(query, [id])
+      console.log(id)
       if (!rows.length) throw new Error('Not Found')
 
       return rows[0]
@@ -18,11 +19,11 @@ class StoreRepository {
     }
   }
 
-  async getAllStoreByCategory({ categoryId, offset = 0, limit = 20}) {
+  async getAllCategory() {
     const conn = await this.db.getConnection()
     try {
-      const query = 'SELECT * FROM store WHERE category_id = ? LIMIT ? OFFSET ?'
-      const [rows] = await conn.query(query, [categoryId, parseInt(limit), parseInt(offset)])
+      const query = 'SELECT * FROM category'
+      const [rows] = await conn.query(query)
       if (!rows.length) throw new Error('Not Found')
 
       return rows
@@ -34,4 +35,4 @@ class StoreRepository {
   }
 }
 
-module.exports = StoreRepository
+module.exports = CategoryRepository
