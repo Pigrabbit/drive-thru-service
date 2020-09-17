@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { MouseEvent } from 'react'
 import styled from 'styled-components'
 import { ProductType } from '../pages/StorePage'
 import { parseToLocalMoneyString } from '../utils/parser'
+import { COLOR } from '../utils/style'
 
 const StyledContainer = styled.li`
   margin: 10px 0;
@@ -12,6 +13,11 @@ const StyledContainer = styled.li`
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
   justify-items: stretch;
   align-items: center;
+  cursor: pointer;
+
+  :active {
+    background-color: ${COLOR.orange};
+  }
 
   img {
     width: 100%;
@@ -24,18 +30,20 @@ const StyledContainer = styled.li`
   }
 
   .product-price {
-    justify-self: end;
+    justify-self: center;
   }
 `
 
 interface Props {
   product: ProductType
+  onClick: (e: MouseEvent) => void
 }
 
 export default function ProductRow(props: Props) {
-  const { name, price, thumbnail_src } = props.product
+  const { id, name, price, thumbnail_src } = props.product
+  
   return (
-    <StyledContainer>
+    <StyledContainer id={`product-${id}`} className="product-row" onClick={props.onClick}>
       <img src={thumbnail_src} alt={`product-thumbnail-${name}`} />
       <p className="product-name">{name}</p>
       <p className="product-price">{parseToLocalMoneyString(price)} 원</p>
