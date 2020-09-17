@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { StoreType } from '../pages/CategoryPage'
 import { StyledLink } from '../utils/StyledLink'
-import Rating from './Rating'
+import StoreRate from './StoreRate'
 
 const StyledContainer = styled.li`
   margin: 10px 0;
@@ -41,7 +41,7 @@ export default function StoreRow(props: Props) {
       <StyledLink to={`/store/${id}`}>
         <img className="store-thumbnail" src={thumbnail_src} alt={`store-thumbnail-${name}`} />
         <div className="store-content">
-          <Rating rating={rating} />
+          <StoreRate rating={rating} />
           <h3 className="store-content-name">{name}</h3>
           <p>{description}</p>
         </div>

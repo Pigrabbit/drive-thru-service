@@ -13,7 +13,7 @@ interface Props {
   rating: number
 }
 
-export default function Rating(props: Props) {
+export default function StoreRate(props: Props) {
   const { rating } = props
   return (
     <StyledContainer className="store-content-rating">

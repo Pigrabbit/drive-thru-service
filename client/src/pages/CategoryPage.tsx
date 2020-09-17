@@ -13,6 +13,13 @@ const StyledContainer = styled.main`
 const StyledDashboard = styled.div`
   margin: 10px;
   padding: 10px;
+  animation: slide-in 500ms ease-in-out;
+
+  @keyframes slide-in {
+    0% {
+      transform: translateX(100%);
+    }
+  }
 `
 
 export type StoreType = {
@@ -47,7 +54,7 @@ export default function CategoryPage() {
     }
 
     fetchData()
-  }, [])
+  }, [id])
 
   useEffect(() => {
     async function fetchData() {
@@ -62,7 +69,7 @@ export default function CategoryPage() {
     }
 
     fetchData()
-  }, [])
+  }, [id])
 
   return (
     <StyledContainer className="category-page">
