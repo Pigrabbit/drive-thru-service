@@ -6,6 +6,7 @@ import Carousel from '../components/Carousel'
 const StyledContainer = styled.main`
   display: grid;
   grid-template-columns: 16.7vw 83.3vw;
+  height: 100vh;
 `
 
 export type CategoryType = {

@@ -7,6 +7,7 @@ import StoreList from '../components/StoreList'
 const StyledContainer = styled.main`
   display: grid;
   grid-template-columns: 16.7vw 83.3vw;
+  height: 100vh;
 `
 
 const StyledDashboard = styled.div`
