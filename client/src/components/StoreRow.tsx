@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { StoreType } from '../pages/CategoryPage'
+import { COLOR } from '../utils/style'
 import { StyledLink } from '../utils/StyledLink'
 import StoreRate from './StoreRate'
 
@@ -12,6 +13,9 @@ const StyledContainer = styled.li`
   a {
     display: grid;
     grid-template-columns: 3fr 9fr;
+  }
+  a:active {
+    background-color: ${COLOR.orange};
   }
   .store-thumbnail {
     width: 150px;

@@ -6,6 +6,7 @@ import { COLOR } from '../utils/style'
 const StyledContainer = styled.li`
   padding: 0 15px;
   margin-bottom: 4px;
+  width: 100%;
 
   display: grid;
   grid-template-columns: 1fr 3fr;
@@ -13,11 +14,13 @@ const StyledContainer = styled.li`
   align-items: center;
 
   img {
-    filter: invert(50%)
+    filter: invert(50%);
+    width: 100%;
+    justify-self: stretch;
   }
 
   span {
-    font-size: 18px;
+    font-size: 1rem;
     font-weight: 600;
     color: ${COLOR.darkGray};
   }

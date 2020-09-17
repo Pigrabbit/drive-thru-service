@@ -4,6 +4,7 @@ import NavItem from './NavItem'
 
 const StyledContainer = styled.ul`
   padding: 15px 0;
+  width: 100%;
 `
 
 export default function NavList() {
