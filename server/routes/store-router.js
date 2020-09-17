@@ -8,10 +8,13 @@ const StoreRepository = require('../repository/store-repository')
 
 const storeController = new StoreController(StoreService, StoreRepository, db)
 
-// Get store by category
-router.get('/', storeController.getStoresByCategory.bind(storeController))
+// GET menu of store
+router.get('/:id/menu', storeController.getMenu.bind(storeController))
 
 // GET store by Id
 router.get('/:id', storeController.getOneStore.bind(storeController))
+
+// Get store by category
+router.get('/', storeController.getStoresByCategory.bind(storeController))
 
 module.exports = router

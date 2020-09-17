@@ -12,6 +12,11 @@ class StoreService {
     const stores = await this.storeRepository.getAllStoreByCategory({ categoryId, offset, limit })
     return stores
   }
+
+  async getMenu(id) {
+    const menu = await this.storeRepository.getMenuByStoreId(id)
+    return menu
+  }
 }
 
 module.exports = StoreService
