@@ -15,9 +15,11 @@ export default function StoreList(props: Props) {
   const { storeList } = props
   return (
     <StyledContainer className="store-list">
-      {storeList.map((store, idx) => (
-        <StoreRow key={idx} id={`store-${store.id}`} store={store}/>
-      ))}
+      {storeList.length > 0 ? (
+        storeList.map((store, idx) => <StoreRow key={idx} id={store.id} store={store} />)
+      ) : (
+        <p>준비중입니다...</p>
+      )}
     </StyledContainer>
   )
 }

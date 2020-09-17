@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import styled from 'styled-components'
+import ProductList from '../components/ProductList'
 import Sidebar from '../components/Sidebar'
-import StoreList from '../components/StoreList'
 
 const StyledContainer = styled.main`
   display: grid;
@@ -22,61 +22,49 @@ const StyledDashboard = styled.div`
   }
 `
 
-export type StoreType = {
+export type ProductType = {
   id: number
-  category_id: number
+  store_id: number
   name: string
-  phone: string
-  latitude: number
-  longitude: number
-  address: string
-  open_at: string
-  cloase_at: string
-  rating: number
-  description: string | null
+  price: number
   thumbnail_src: string
+  description: string
 }
 
-export default function CategoryPage() {
+export default function StorePage() {
   const location = useLocation()
   const id = location.pathname.split('/')[2]
-
   const [name, setName] = useState<string>('')
-  const [storeList, setStoreList] = useState<StoreType[]>()
+  const [productList, setProductList] = useState<ProductType[]>()
 
   useEffect(() => {
     async function fetchData() {
-      const result = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/category/${id}`, {
+      const result = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/store/${id}`, {
         method: 'GET',
       })
       const data = await result.json()
       setName(data.name)
     }
-
     fetchData()
   }, [id])
 
   useEffect(() => {
     async function fetchData() {
-      const result = await fetch(
-        `${process.env.REACT_APP_API_ENDPOINT}/store?categoryId=${id}&offset=0&limit=20`,
-        {
-          method: 'GET',
-        }
-      )
+      const result = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/store/${id}/menu`, {
+        method: 'GET',
+      })
       const data = await result.json()
-      setStoreList(data)
+      setProductList(data)
     }
-
     fetchData()
   }, [id])
 
   return (
-    <StyledContainer className="category-page">
+    <StyledContainer>
       <Sidebar />
-      <StyledDashboard className="category-dashboard">
+      <StyledDashboard className="store-dashboard">
         <h1>{name}</h1>
-        {!storeList ? <p>loading...</p> : <StoreList storeList={storeList}/>}
+        {!productList ? <p>loading...</p> : <ProductList productList={productList} />}
       </StyledDashboard>
     </StyledContainer>
   )

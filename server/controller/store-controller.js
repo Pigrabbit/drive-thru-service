@@ -25,6 +25,16 @@ class StoreController {
       next(err)
     }
   }
+
+  async getMenu(req, res, next) {
+    try {
+      const { id } = req.params
+      const menu = await this.storeService.getMenu(id)
+      res.status(200).json(menu)
+    } catch (err) {
+      next(err)
+    }
+  }
 }
 
 module.exports = StoreController

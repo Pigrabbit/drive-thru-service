@@ -7,18 +7,24 @@ const StyledContainer = styled.li`
   margin: 0 10px;
   padding: 5px;
   width: 30%;
-  height: 95%;
-  display: flex;
-  flex-direction: column;
+  height: 100%;
   justify-content: space-between;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
 
-  p {
-    margin-top: 4px;
+  a {
+    height: 100%;
+    display: grid;
+    grid-template-rows: 5fr 1fr;
+    align-items: stretch;
   }
-  
+
+  p {
+    align-self: end;
+  }
+
   img {
     width: 100%;
+    object-fit: cover;
   }
 `
 
@@ -33,7 +39,7 @@ export default function Card(props: Props) {
       <StyledLink to={`/category/${id}`}>
         <img src={thumbnail_src} alt="" />
         <p>{name}</p>
-      </StyledLink>  
+      </StyledLink>
     </StyledContainer>
   )
 }

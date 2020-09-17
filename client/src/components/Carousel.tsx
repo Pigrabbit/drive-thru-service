@@ -68,7 +68,7 @@ export default function Carousel(props: Props) {
       <h1 className="carousel-header">{name}</h1>
       <div className="card-section-body">
         <button className="carousel-arrow" onClick={leftArrowClickHandler}>
-          <img src={`${process.env.PUBLIC_URL}/img/icons/arrow_left.svg`} />
+          <img src={`${process.env.PUBLIC_URL}/img/icons/arrow_left.svg`} alt="carousel-back-btn"/>
         </button>
         <div className="carousel-slider" ref={sliderRef}>
           {[...Array(NUM_CARD_IN_SECTION).keys()].map((sectionIdx) => (
@@ -82,7 +82,7 @@ export default function Carousel(props: Props) {
           ))}
         </div>
         <button className="carousel-arrow" onClick={rightArrowClickHandler}>
-          <img src={`${process.env.PUBLIC_URL}/img/icons/arrow_right.svg`} />
+          <img src={`${process.env.PUBLIC_URL}/img/icons/arrow_right.svg`} alt="carousel-next-btn"/>
         </button>
       </div>
     </StyledContainer>

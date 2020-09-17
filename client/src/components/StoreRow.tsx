@@ -1,8 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 import { StoreType } from '../pages/CategoryPage'
+import { COLOR } from '../utils/style'
 import { StyledLink } from '../utils/StyledLink'
-import Rating from './Rating'
+import StoreRate from './StoreRate'
 
 const StyledContainer = styled.li`
   margin: 10px 0;
@@ -12,6 +13,9 @@ const StyledContainer = styled.li`
   a {
     display: grid;
     grid-template-columns: 3fr 9fr;
+  }
+  a:active {
+    background-color: ${COLOR.orange};
   }
   .store-thumbnail {
     width: 150px;
@@ -29,7 +33,7 @@ const StyledContainer = styled.li`
 `
 
 interface Props {
-  id: string
+  id: number
   store: StoreType
 }
 
@@ -37,11 +41,11 @@ export default function StoreRow(props: Props) {
   const { id, store } = props
   const { name, rating, description, thumbnail_src } = store
   return (
-    <StyledContainer id={id} className="store-row">
+    <StyledContainer id={`store-${id}`} className="store-row">
       <StyledLink to={`/store/${id}`}>
         <img className="store-thumbnail" src={thumbnail_src} alt={`store-thumbnail-${name}`} />
         <div className="store-content">
-          <Rating rating={rating} />
+          <StoreRate rating={rating} />
           <h3 className="store-content-name">{name}</h3>
           <p>{description}</p>
         </div>

@@ -4,11 +4,13 @@ import styled from 'styled-components'
 import {COLOR} from '../utils/style'
 
 const StyledContainer = styled.div`
-  padding: 30px 30px 15px 30px;
-
+  margin-top: 10px;
+  padding: 10px 30px 15px 30px;
+  width: 100%;
+  
   p {
     margin-top: 10px;
-    font-size: 24px;
+    font-size: 1.25rem;
     font-weight: 600;
     color: ${COLOR.darkGray}
   }
