@@ -1,7 +1,7 @@
 import React, { useState, MouseEvent } from 'react'
 import styled from 'styled-components'
-import { TOGGLE_MODAL } from '../app/actionTypes'
-import { store } from '../app/store'
+import { TOGGLE_MODAL } from '../store/modal/types'
+import { store } from '../index'
 import { ProductType } from '../pages/StorePage'
 import Modal from './Modal'
 import ProductRow from './ProductRow'
@@ -24,7 +24,7 @@ export default function ProductList(props: Props) {
     setClickedProductId(parseInt(id))
 
     store.dispatch({ type: TOGGLE_MODAL, payload: { isVisible: true } })
-    const { isVisible } = store.getState()
+    const { isVisible } = store.getState().modal
 
     setIsModalVisible(isVisible)
   }
@@ -32,7 +32,7 @@ export default function ProductList(props: Props) {
   const clickModalOutsideHandler = (e: MouseEvent<HTMLDivElement>) => {
     if (!(e.target as HTMLDivElement).classList.contains('modal-overlay')) return
     store.dispatch({ type: TOGGLE_MODAL, payload: { isVisible: false } })
-    const { isVisible } = store.getState()
+    const { isVisible } = store.getState().modal
 
     setIsModalVisible(isVisible)
   }
