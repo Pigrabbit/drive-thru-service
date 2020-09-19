@@ -19,10 +19,11 @@ const StyledModal = styled.div`
   transform: translate(-50%, -50%);
   box-shadow: 0 1px 12px rgba(0, 0, 0, 0.5);
   background-color: #fff;
-  width: 70%;
+  width: 50%;
+  height: 70%;
   padding: 10px;
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: 70% auto auto auto;
   grid-gap: 5px;
   animation: slideUp 400ms ease-in-out;
 
@@ -33,7 +34,9 @@ const StyledModal = styled.div`
   }
 
   .modal-product-thumbnail {
-    width: 100%;
+    object-fit: contain;
+    height: 100%;
+    justify-self: center;
   }
 
   .modal-product-order-btn {
