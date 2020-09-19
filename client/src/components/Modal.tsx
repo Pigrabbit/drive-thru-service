@@ -35,13 +35,15 @@ const StyledModal = styled.div`
 
   .modal-product-thumbnail {
     object-fit: contain;
-    height: 100%;
+    width: 100%;
+    /* height: 100%; */
     justify-self: center;
   }
 
   .modal-product-order-btn {
     margin: 5px;
     padding: 5px;
+    width: 100%;
     height: 48px;
     background-color: ${COLOR.orange};
     color: #fff;

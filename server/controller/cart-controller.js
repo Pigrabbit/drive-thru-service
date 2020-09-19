@@ -8,7 +8,7 @@ class CartController {
     try {
       const { cartId } = req.params
       const cart = await this.cartService.getCartById(cartId)
-      res.status(200).json({ data: cart })
+      res.status(200).json( cart )
     } catch (err) {
       next(err)
     }
