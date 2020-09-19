@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import styled from 'styled-components'
+import CartPanel from '../components/CartPanel'
 import ProductList from '../components/ProductList'
 import Sidebar from '../components/Sidebar'
 
 const StyledContainer = styled.main`
   display: grid;
-  grid-template-columns: 16.7vw 83.3vw;
+  grid-template-columns: 16.7vw 50vw 33.3vw;
   height: 100vh;
 `
 
@@ -66,6 +67,7 @@ export default function StorePage() {
         <h1>{name}</h1>
         {!productList ? <p>loading...</p> : <ProductList productList={productList} />}
       </StyledDashboard>
+      <CartPanel />
     </StyledContainer>
   )
 }
