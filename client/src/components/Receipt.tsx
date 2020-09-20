@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { COLOR } from '../utils/style'
 import { CartProductType } from './CartPanel'
+import CartProductItem from './CartProductItem'
 
 const StyledContainer = styled.div`
   margin: 10px 0;
@@ -13,16 +14,6 @@ const StyledContainer = styled.div`
 
   .card-product-list{
     padding: 10px;
-  }
-
-  .cart-product-item {
-    margin-bottom: 5px;
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-    &-content {
-      display: flex;
-      justify-content: space-between;
-    }
   }
 `
 
@@ -36,15 +27,7 @@ export default function Receipt(props: Props) {
     <StyledContainer className="receipt">
       <ul className="card-product-list">
         {cartProductList.map((cartProduct, idx) => (
-          <li key={idx} className="cart-product-item">
-            <div className="cart-product-item-content">
-              <p className="cart-product-name">{cartProduct.name}</p>
-              <p className="cart-product-price">{cartProduct.price}</p>
-            </div>
-            <div className="cart-product-item-controller">
-              <p className="cart-product-quantity">{cartProduct.quantity}</p>
-            </div>
-          </li>
+          <CartProductItem key={idx} cartProduct={cartProduct}/>
         ))}
       </ul>
     </StyledContainer>

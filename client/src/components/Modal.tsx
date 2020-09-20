@@ -29,7 +29,7 @@ const StyledModal = styled.div`
 
   @keyframes slideUp {
     0% {
-      transform: translate(-50%, 0%)
+      transform: translate(-50%, 0%);
     }
   }
 
@@ -41,7 +41,6 @@ const StyledModal = styled.div`
   }
 
   .modal-product-order-btn {
-    margin: 5px;
     padding: 5px;
     width: 100%;
     height: 48px;
@@ -58,15 +57,37 @@ interface Props {
 }
 
 export default function Modal(props: Props) {
-  const { name, description, thumbnail_src } = props.product
+  const { id, name, description, thumbnail_src } = props.product
+
+  const clickOrderButtonHandler = async () => {
+    const body = {
+      productId: id,
+      quantity: 1,
+    }
+    const result = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/cart`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    })
+    const data = await result.json()
+    console.log(data)
+  }
 
   return (
     <StyledContainer className="modal-overlay" onClick={props.clickModalOutsideHandler}>
       <StyledModal className="modal">
-        <img className="modal-product-thumbnail" src={thumbnail_src} alt={`modal-product-${name}`} />
+        <img
+          className="modal-product-thumbnail"
+          src={thumbnail_src}
+          alt={`modal-product-${name}`}
+        />
         <h4 className="modal-product-name">{name}</h4>
         <p className="modal-product-description">{description}</p>
-        <button className="modal-product-order-btn">장바구니에 담기</button>
+        <button className="modal-product-order-btn" onClick={clickOrderButtonHandler}>
+          장바구니에 담기
+        </button>
       </StyledModal>
     </StyledContainer>
   )
