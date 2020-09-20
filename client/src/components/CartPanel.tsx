@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { CartProductType } from '../store/cartProduct/types'
 import { MOCK_CART_ID } from '../utils/constants'
 import { COLOR } from '../utils/style'
 import Receipt from './Receipt'
@@ -21,14 +22,6 @@ const StyledContainer = styled.aside`
     box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
   }
 `
-
-export type CartProductType = {
-  id: number
-  product_id: number
-  name: string
-  price: number
-  quantity: number
-}
 
 export default function CartPanel() {
   const [cartProductList, setCartProductList] = useState<CartProductType[]>([])

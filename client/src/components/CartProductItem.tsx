@@ -73,6 +73,13 @@ export default function CartProductItem(props: Props) {
     )
     const data = await result.json()
   }
+
+  const clickRemoveButtonHandler = async () => {
+    await fetch(`${process.env.REACT_APP_API_ENDPOINT}/cart/${MOCK_CART_ID}/${product_id}`, {
+      method: 'DELETE',
+    })
+  }
+
   return (
     <StyledContainer className="cart-product-item">
       <div className="cart-product-item-content">
@@ -95,7 +102,9 @@ export default function CartProductItem(props: Props) {
           </button>
         </div>
         <p className="cart-product-quantity">{quantity}</p>
-        <button className="cart-product-item-btn">remove</button>
+        <button className="cart-product-item-btn" onClick={clickRemoveButtonHandler}>
+          remove
+        </button>
       </div>
     </StyledContainer>
   )
