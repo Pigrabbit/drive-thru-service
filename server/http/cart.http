@@ -6,13 +6,13 @@ POST http://localhost:4000/api/cart
 Content-Type: application/json
 
 {
-  "productId": 5,
+  "productId": 2,
   "quantity": 1
 }
 
 ### update quantity of product existing in a cart
 
-PUT http://localhost:4000/api/cart/1/5
+PUT http://localhost:4000/api/cart/1/6
 Content-Type: application/json
 
 {
