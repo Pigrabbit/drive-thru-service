@@ -1,25 +1,31 @@
-import React, { MouseEvent } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { MOCK_CART_ID } from '../utils/constants'
 import { CartProductType, FETCH_CART, REMOVE_FROM_CART } from '../store/cart/types'
-import { store } from '..'
 import { useDispatch } from 'react-redux'
 
 const StyledContainer = styled.li`
-  margin-bottom: 5px;
+  margin: 10px 0;
+  padding: 5px;
   display: grid;
   grid-template-rows: 1fr 1fr;
+  
   .cart-product-item-content {
     display: flex;
     justify-content: space-between;
+    p {
+      margin: 0 10px;
+    }
   }
   .cart-product-item-controller {
-    width: 100%;
+    width: 60%;
+    justify-self: end;
     display: flex;
     justify-content: space-evenly;
   }
   .cart-product-item-quantity-controller {
     display: flex;
+    margin: 0 10px;
     &-btn {
       margin: 0 5px;
       font-size: 18px;
@@ -35,7 +41,7 @@ export default function CartProductItem(props: Props) {
   const { product_id, name, price, quantity } = props.cartProduct
   const dispatch = useDispatch()
 
-  const clickIncrementButtonHandler = async (e: MouseEvent<HTMLButtonElement>) => {
+  const clickIncrementButtonHandler = async () => {
     if (quantity >= 10) {
       alert('최대 주문 수량입니다')
       return
@@ -62,7 +68,7 @@ export default function CartProductItem(props: Props) {
     dispatch({ type: FETCH_CART, payload: fetchedData })
   }
 
-  const clickDecrementButtonHandler = async (e: MouseEvent<HTMLButtonElement>) => {
+  const clickDecrementButtonHandler = async () => {
     if (quantity <= 1) {
       alert('최소 주문 수량입니다')
       return

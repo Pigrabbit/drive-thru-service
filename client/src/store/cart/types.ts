@@ -8,6 +8,7 @@ export type CartProductType = {
 
 export interface CartState {
   cartProductList: CartProductType[]
+  totalPrice: number
 }
 
 // Action
