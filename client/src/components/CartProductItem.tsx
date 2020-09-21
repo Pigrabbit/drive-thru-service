@@ -1,7 +1,9 @@
 import React, { MouseEvent } from 'react'
 import styled from 'styled-components'
 import { MOCK_CART_ID } from '../utils/constants'
-import { CartProductType } from '../store/cart/types'
+import { CartProductType, REMOVE_FROM_CART } from '../store/cart/types'
+import { store } from '..'
+import { useDispatch } from 'react-redux'
 
 const StyledContainer = styled.li`
   margin-bottom: 5px;
@@ -31,6 +33,8 @@ interface Props {
 
 export default function CartProductItem(props: Props) {
   const { product_id, name, price, quantity } = props.cartProduct
+  const dispatch = useDispatch()
+
   const clickIncrementButtonHandler = async (e: MouseEvent<HTMLButtonElement>) => {
     if (quantity >= 10) {
       alert('최대 주문 수량입니다')
@@ -50,7 +54,6 @@ export default function CartProductItem(props: Props) {
       }
     )
     const data = await result.json()
-    console.log(data)
   }
 
   const clickDecrementButtonHandler = async (e: MouseEvent<HTMLButtonElement>) => {
@@ -75,9 +78,15 @@ export default function CartProductItem(props: Props) {
   }
 
   const clickRemoveButtonHandler = async () => {
-    await fetch(`${process.env.REACT_APP_API_ENDPOINT}/cart/${MOCK_CART_ID}/${product_id}`, {
-      method: 'DELETE',
-    })
+    const result = await fetch(
+      `${process.env.REACT_APP_API_ENDPOINT}/cart/${MOCK_CART_ID}/${product_id}`,
+      {
+        method: 'DELETE',
+      }
+    )
+    const data = await result.json()
+    if (!data.success) return
+    dispatch({ type: REMOVE_FROM_CART, payload: { product_id } })
   }
 
   return (

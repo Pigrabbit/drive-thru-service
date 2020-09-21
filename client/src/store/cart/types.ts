@@ -43,7 +43,7 @@ interface decrementQuantityAction {
 interface removeFromCartAction {
   type: typeof REMOVE_FROM_CART
   payload: {
-    id: number
+    product_id: number
   }
 }
 

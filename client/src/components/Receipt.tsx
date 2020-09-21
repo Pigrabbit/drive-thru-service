@@ -1,9 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import { COLOR } from '../utils/style'
-import { CartProductType } from '../store/cart/types'
 import CartProductItem from './CartProductItem'
-import { store } from '..'
+import { shallowEqual, useSelector } from 'react-redux'
+import { RootState } from '../store'
+import { CartState } from '../store/cart/types'
 
 const StyledContainer = styled.div`
   margin: 10px 0;
@@ -13,18 +14,22 @@ const StyledContainer = styled.div`
   background-color: ${COLOR.darkerGray};
   box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
-  .card-product-list{
+  .card-product-list {
     padding: 10px;
   }
 `
 
 export default function Receipt() {
-  const { cartProductList } = store.getState().cart
+  // const { cartProductList } = store.getState().cart
+  const { cartProductList } = useSelector<RootState, CartState>(
+    (rootState) => rootState.cart, shallowEqual
+  )
+
   return (
     <StyledContainer className="receipt">
       <ul className="card-product-list">
         {cartProductList.map((cartProduct, idx) => (
-          <CartProductItem key={idx} cartProduct={cartProduct}/>
+          <CartProductItem key={idx} cartProduct={cartProduct} />
         ))}
       </ul>
     </StyledContainer>

@@ -16,7 +16,6 @@ export function fetchCart(cartProductList: CartProductType[]): CartActionTypes {
   }
 }
 
-
 export function addToCart(newProduct: CartProductType): CartActionTypes {
   return {
     type: ADD_TO_CART,
@@ -38,11 +37,11 @@ export function decrementQuantity(updatedProduct: CartProductType): CartActionTy
   }
 }
 
-export function removeFromCart(id: number): CartActionTypes {
+export function removeFromCart(product_id: number): CartActionTypes {
   return {
     type: REMOVE_FROM_CART,
     payload: {
-      id,
+      product_id
     },
   }
 }

@@ -31,7 +31,6 @@ export default function CartPanel() {
         method: 'GET',
       })
       const data: CartProductType[] = await result.json()
-
       store.dispatch({ type: FETCH_CART, payload: data })
     }
 

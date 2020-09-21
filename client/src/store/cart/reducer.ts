@@ -15,9 +15,9 @@ const initialState: CartState = {
 export function cartReducer(state = initialState, action: CartActionTypes): CartState {
   switch (action.type) {
     case FETCH_CART:
-      return { cartProductList: action.payload }
+      return { ...state, cartProductList: action.payload }
     case ADD_TO_CART:
-      return { cartProductList: state.cartProductList.concat(action.payload) }
+      return { ...state, cartProductList: state.cartProductList.concat(action.payload) }
     case INCREMENT_QUANTITY:
       return { ...state }
     case DECREMENT_QUANTITY:
@@ -25,7 +25,7 @@ export function cartReducer(state = initialState, action: CartActionTypes): Cart
     case REMOVE_FROM_CART:
       return {
         cartProductList: state.cartProductList.filter(
-          (cartProduct) => cartProduct.id !== action.payload.id
+          (cartProduct) => cartProduct.product_id !== action.payload.product_id
         ),
       }
     default:
