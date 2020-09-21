@@ -17,7 +17,7 @@ export function cartReducer(state = initialState, action: CartActionTypes): Cart
     case FETCH_CART:
       return { ...state, cartProductList: action.payload }
     case ADD_TO_CART:
-      return { ...state, cartProductList: state.cartProductList.concat(action.payload) }
+      return { ...state }
     case INCREMENT_QUANTITY:
       return { ...state }
     case DECREMENT_QUANTITY:

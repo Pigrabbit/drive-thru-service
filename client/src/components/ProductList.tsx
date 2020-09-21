@@ -1,10 +1,12 @@
 import React, { useState, MouseEvent } from 'react'
 import styled from 'styled-components'
-import { TOGGLE_MODAL } from '../store/modal/types'
+import { toggleModalState, TOGGLE_MODAL } from '../store/modal/types'
 import { store } from '../index'
 import { ProductType } from '../pages/StorePage'
 import Modal from './Modal'
 import ProductRow from './ProductRow'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../store'
 
 const StyledContainer = styled.ul`
   width: 100%;
@@ -17,24 +19,20 @@ interface Props {
 export default function ProductList(props: Props) {
   const { productList } = props
   const [clickedProductId, setClickedProductId] = useState<number>(-1)
-  const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
+  const dispatch = useDispatch()
+  const { isVisible } = useSelector<RootState, toggleModalState>(
+    (rootState) => rootState.modal, shallowEqual
+  )
 
   const clickProductHandler = (e: MouseEvent) => {
     const id = e.currentTarget.id.split('-')[1]
     setClickedProductId(parseInt(id))
-
-    store.dispatch({ type: TOGGLE_MODAL, payload: { isVisible: true } })
-    const { isVisible } = store.getState().modal
-
-    setIsModalVisible(isVisible)
+    dispatch({ type: TOGGLE_MODAL, payload: { isVisible: true } })
   }
 
   const clickModalOutsideHandler = (e: MouseEvent<HTMLDivElement>) => {
     if (!(e.target as HTMLDivElement).classList.contains('modal-overlay')) return
-    store.dispatch({ type: TOGGLE_MODAL, payload: { isVisible: false } })
-    const { isVisible } = store.getState().modal
-
-    setIsModalVisible(isVisible)
+    dispatch({ type: TOGGLE_MODAL, payload: { isVisible: false } })
   }
 
   return (
@@ -46,7 +44,7 @@ export default function ProductList(props: Props) {
       ) : (
         <p>준비중입니다...</p>
       )}
-      {clickedProductId > 0 && isModalVisible ? (
+      {clickedProductId > 0 && isVisible ? (
         <Modal
           product={productList.filter((product) => product.id === clickedProductId)[0]}
           clickModalOutsideHandler={clickModalOutsideHandler}

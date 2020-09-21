@@ -20,6 +20,11 @@ export const INCREMENT_QUANTITY = 'INCREMENT_QUANTITY'
 export const DECREMENT_QUANTITY = 'DECREMENT_QUANTITY'
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 
+export interface MutateProductType {
+  product_id: number
+  quantity: number
+}
+
 interface fetchCartAction {
   type: typeof FETCH_CART
   payload: CartProductType[]
@@ -27,17 +32,17 @@ interface fetchCartAction {
 
 interface addToCartAction {
   type: typeof ADD_TO_CART
-  payload: CartProductType
+  payload: MutateProductType
 }
 
 interface incrementQuantityAction {
   type: typeof INCREMENT_QUANTITY
-  payload: CartProductType
+  payload: MutateProductType
 }
 
 interface decrementQuantityAction {
   type: typeof DECREMENT_QUANTITY
-  payload: CartProductType
+  payload: MutateProductType
 }
 
 interface removeFromCartAction {

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
-import { store } from '..'
 import { CartProductType, FETCH_CART } from '../store/cart/types'
 import { MOCK_CART_ID } from '../utils/constants'
 import { COLOR } from '../utils/style'
@@ -25,13 +25,15 @@ const StyledContainer = styled.aside`
 `
 
 export default function CartPanel() {
+  const dispatch = useDispatch()
+
   useEffect(() => {
     async function fetchData() {
       const result = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/cart/${MOCK_CART_ID}`, {
         method: 'GET',
       })
       const data: CartProductType[] = await result.json()
-      store.dispatch({ type: FETCH_CART, payload: data })
+      dispatch({ type: FETCH_CART, payload: data })
     }
 
     fetchData()

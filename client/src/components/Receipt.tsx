@@ -20,7 +20,6 @@ const StyledContainer = styled.div`
 `
 
 export default function Receipt() {
-  // const { cartProductList } = store.getState().cart
   const { cartProductList } = useSelector<RootState, CartState>(
     (rootState) => rootState.cart, shallowEqual
   )

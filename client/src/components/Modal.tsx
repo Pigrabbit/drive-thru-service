@@ -1,6 +1,9 @@
 import React, { MouseEvent } from 'react'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import { ProductType } from '../pages/StorePage'
+import { CartProductType, FETCH_CART } from '../store/cart/types'
+import { MOCK_CART_ID } from '../utils/constants'
 import { COLOR } from '../utils/style'
 
 const StyledContainer = styled.div`
@@ -58,21 +61,27 @@ interface Props {
 
 export default function Modal(props: Props) {
   const { id, name, description, thumbnail_src } = props.product
+  const dispatch = useDispatch()
 
   const clickOrderButtonHandler = async () => {
     const body = {
       productId: id,
       quantity: 1,
     }
-    const result = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/cart`, {
+    let result = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/cart`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(body),
     })
-    const data = await result.json()
-    console.log(data)
+    let data = await result.json()
+    if (!data.success) return
+    result = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/cart/${MOCK_CART_ID}`, {
+      method: 'GET',
+    })
+    const fetchedData: CartProductType[] = await result.json()
+    dispatch({ type: FETCH_CART, payload: fetchedData })
   }
 
   return (
