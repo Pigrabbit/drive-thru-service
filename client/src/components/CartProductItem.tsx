@@ -1,7 +1,7 @@
 import React, { MouseEvent } from 'react'
 import styled from 'styled-components'
 import { MOCK_CART_ID } from '../utils/constants'
-import { CartProductType, REMOVE_FROM_CART } from '../store/cart/types'
+import { CartProductType, FETCH_CART, REMOVE_FROM_CART } from '../store/cart/types'
 import { store } from '..'
 import { useDispatch } from 'react-redux'
 
@@ -43,7 +43,7 @@ export default function CartProductItem(props: Props) {
     const body = {
       quantity: quantity + 1,
     }
-    const result = await fetch(
+    let result = await fetch(
       `${process.env.REACT_APP_API_ENDPOINT}/cart/${MOCK_CART_ID}/${product_id}`,
       {
         method: 'PUT',
@@ -54,6 +54,12 @@ export default function CartProductItem(props: Props) {
       }
     )
     const data = await result.json()
+    if (!data.success) return
+    result = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/cart/${MOCK_CART_ID}`, {
+      method: 'GET',
+    })
+    const fetchedData: CartProductType[] = await result.json()
+    dispatch({ type: FETCH_CART, payload: fetchedData })
   }
 
   const clickDecrementButtonHandler = async (e: MouseEvent<HTMLButtonElement>) => {
@@ -64,7 +70,7 @@ export default function CartProductItem(props: Props) {
     const body = {
       quantity: quantity - 1,
     }
-    const result = await fetch(
+    let result = await fetch(
       `${process.env.REACT_APP_API_ENDPOINT}/cart/${MOCK_CART_ID}/${product_id}`,
       {
         method: 'PUT',
@@ -75,6 +81,12 @@ export default function CartProductItem(props: Props) {
       }
     )
     const data = await result.json()
+    if (!data.success) return
+    result = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/cart/${MOCK_CART_ID}`, {
+      method: 'GET',
+    })
+    const fetchedData: CartProductType[] = await result.json()
+    dispatch({ type: FETCH_CART, payload: fetchedData })
   }
 
   const clickRemoveButtonHandler = async () => {

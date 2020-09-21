@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import { ProductType } from '../pages/StorePage'
 import { CartProductType, FETCH_CART } from '../store/cart/types'
+import { TOGGLE_MODAL } from '../store/modal/types'
 import { MOCK_CART_ID } from '../utils/constants'
 import { COLOR } from '../utils/style'
 
@@ -75,13 +76,14 @@ export default function Modal(props: Props) {
       },
       body: JSON.stringify(body),
     })
-    let data = await result.json()
+    const data = await result.json()
     if (!data.success) return
     result = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/cart/${MOCK_CART_ID}`, {
       method: 'GET',
     })
     const fetchedData: CartProductType[] = await result.json()
     dispatch({ type: FETCH_CART, payload: fetchedData })
+    dispatch({ type: TOGGLE_MODAL, payload: { isVisible: false } })
   }
 
   return (
