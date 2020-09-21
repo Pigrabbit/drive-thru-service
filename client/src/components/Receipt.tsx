@@ -1,8 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 import { COLOR } from '../utils/style'
-import { CartProductType } from './CartPanel'
+import { CartProductType } from '../store/cart/types'
 import CartProductItem from './CartProductItem'
+import { store } from '..'
 
 const StyledContainer = styled.div`
   margin: 10px 0;
@@ -17,12 +18,8 @@ const StyledContainer = styled.div`
   }
 `
 
-interface Props {
-  cartProductList: CartProductType[]
-}
-
-export default function Receipt(props: Props) {
-  const { cartProductList } = props
+export default function Receipt() {
+  const { cartProductList } = store.getState().cart
   return (
     <StyledContainer className="receipt">
       <ul className="card-product-list">

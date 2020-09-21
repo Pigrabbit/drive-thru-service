@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { CartProductType } from '../store/cartProduct/types'
+import { store } from '..'
+import { CartProductType, FETCH_CART } from '../store/cart/types'
 import { MOCK_CART_ID } from '../utils/constants'
 import { COLOR } from '../utils/style'
 import Receipt from './Receipt'
@@ -24,15 +25,14 @@ const StyledContainer = styled.aside`
 `
 
 export default function CartPanel() {
-  const [cartProductList, setCartProductList] = useState<CartProductType[]>([])
-
   useEffect(() => {
     async function fetchData() {
       const result = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/cart/${MOCK_CART_ID}`, {
         method: 'GET',
       })
-      const data = await result.json()
-      setCartProductList(data)
+      const data: CartProductType[] = await result.json()
+
+      store.dispatch({ type: FETCH_CART, payload: data })
     }
 
     fetchData()
@@ -40,7 +40,7 @@ export default function CartPanel() {
   return (
     <StyledContainer className="cart-panel">
       <span className="material-icons">shopping_cart</span>
-      <Receipt cartProductList={cartProductList}/>
+      <Receipt />
       <button className="checkout-btn">checkout</button>
     </StyledContainer>
   )

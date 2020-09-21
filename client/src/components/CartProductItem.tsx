@@ -1,7 +1,7 @@
 import React, { MouseEvent } from 'react'
 import styled from 'styled-components'
 import { MOCK_CART_ID } from '../utils/constants'
-import { CartProductType } from './CartPanel'
+import { CartProductType } from '../store/cart/types'
 
 const StyledContainer = styled.li`
   margin-bottom: 5px;
