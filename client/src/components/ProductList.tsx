@@ -1,7 +1,6 @@
 import React, { useState, MouseEvent } from 'react'
 import styled from 'styled-components'
 import { toggleModalState, TOGGLE_MODAL } from '../store/modal/types'
-import { store } from '../index'
 import { ProductType } from '../pages/StorePage'
 import Modal from './Modal'
 import ProductRow from './ProductRow'

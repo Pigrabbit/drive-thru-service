@@ -37,7 +37,7 @@ export default function CartPanel() {
     }
 
     fetchData()
-  }, [])
+  }, [dispatch])
   return (
     <StyledContainer className="cart-panel">
       <span className="material-icons">shopping_cart</span>
