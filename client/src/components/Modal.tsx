@@ -1,6 +1,10 @@
 import React, { MouseEvent } from 'react'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import { ProductType } from '../pages/StorePage'
+import { CartProductType, FETCH_CART } from '../store/cart/types'
+import { TOGGLE_MODAL } from '../store/modal/types'
+import { MOCK_CART_ID } from '../utils/constants'
 import { COLOR } from '../utils/style'
 
 const StyledContainer = styled.div`
@@ -29,19 +33,20 @@ const StyledModal = styled.div`
 
   @keyframes slideUp {
     0% {
-      transform: translate(-50%, 0%)
+      transform: translate(-50%, 0%);
     }
   }
 
   .modal-product-thumbnail {
     object-fit: contain;
-    height: 100%;
+    width: 100%;
+    /* height: 100%; */
     justify-self: center;
   }
 
   .modal-product-order-btn {
-    margin: 5px;
     padding: 5px;
+    width: 100%;
     height: 48px;
     background-color: ${COLOR.orange};
     color: #fff;
@@ -56,15 +61,44 @@ interface Props {
 }
 
 export default function Modal(props: Props) {
-  const { name, description, thumbnail_src } = props.product
+  const { id, name, description, thumbnail_src } = props.product
+  const dispatch = useDispatch()
+
+  const clickOrderButtonHandler = async () => {
+    const body = {
+      productId: id,
+      quantity: 1,
+    }
+    let result = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/cart`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    })
+    const data = await result.json()
+    if (!data.success) return
+    result = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/cart/${MOCK_CART_ID}`, {
+      method: 'GET',
+    })
+    const fetchedData: CartProductType[] = await result.json()
+    dispatch({ type: FETCH_CART, payload: fetchedData })
+    dispatch({ type: TOGGLE_MODAL, payload: { isVisible: false } })
+  }
 
   return (
     <StyledContainer className="modal-overlay" onClick={props.clickModalOutsideHandler}>
       <StyledModal className="modal">
-        <img className="modal-product-thumbnail" src={thumbnail_src} alt={`modal-product-${name}`} />
+        <img
+          className="modal-product-thumbnail"
+          src={thumbnail_src}
+          alt={`modal-product-${name}`}
+        />
         <h4 className="modal-product-name">{name}</h4>
         <p className="modal-product-description">{description}</p>
-        <button className="modal-product-order-btn">장바구니에 담기</button>
+        <button className="modal-product-order-btn" onClick={clickOrderButtonHandler}>
+          장바구니에 담기
+        </button>
       </StyledModal>
     </StyledContainer>
   )
