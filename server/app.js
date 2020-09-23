@@ -10,6 +10,7 @@ require('dotenv').config({
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
+app.use(express.static('public'))
 app.use(cors())
 app.use(morgan(logFormat))
 
@@ -21,7 +22,7 @@ const apiRouter = require('./routes/api-router')
 app.use('/api', apiRouter)
 
 app.use('/', (req, res, next) => {
-  res.json({ message: 'hello world' })
+  res.sendFile('public/index.html', { root: __dirname })
 })
 
 app.use((err, req, res, next) => {
